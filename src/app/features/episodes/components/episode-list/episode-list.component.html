@@ -1,0 +1,65 @@
+<div class="list-container">
+  <div class="view-controls">
+    <mat-button-toggle-group 
+      [value]="viewMode()"
+      (change)="onViewModeChange($event.value)"
+    >
+      <mat-button-toggle value="cards" [matTooltip]="'Vista de tarjetas'">
+        <mat-icon>grid_view</mat-icon>
+        <span>Cards</span>
+      </mat-button-toggle>
+      <mat-button-toggle value="table" [matTooltip]="'Vista de tabla'">
+        <mat-icon>table_rows</mat-icon>
+        <span>Tabla</span>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  @if (viewMode() === 'table') {
+    <app-episode-table
+      [episodes]="episodes"
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      (onSelectEpisode)="onSelectEpisode.emit($event)"
+      (nextPage)="nextPage.emit()"
+      (previousPage)="previousPage.emit()"
+    ></app-episode-table>
+  }
+
+  @if (viewMode() === 'cards') {
+    <div class="cards-view">
+      <div class="episodes-grid">
+        @for (episode of episodes; track episode.id) {
+          <app-episode-card
+            [episode]="episode"
+            (onSelect)="onSelectEpisode.emit($event)"
+          ></app-episode-card>
+        }
+      </div>
+
+      @if (episodes.length > 0) {
+        <div class="pagination">
+          <button
+            (click)="previousPage.emit()"
+            [disabled]="currentPage === 1"
+            class="btn-pagination"
+          >
+            ← Anterior
+          </button>
+
+          <div class="page-info">
+            Página {{ currentPage }} de {{ totalPages }}
+          </div>
+
+          <button
+            (click)="nextPage.emit()"
+            [disabled]="currentPage === totalPages"
+            class="btn-pagination"
+          >
+            Siguiente →
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>

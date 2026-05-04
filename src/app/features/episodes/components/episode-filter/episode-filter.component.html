@@ -1,0 +1,30 @@
+<div class="filter-container">
+  <div class="filter-group">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar por nombre</mat-label>
+      <input 
+        matInput
+        [(ngModel)]="nameFilter"
+        (ngModelChange)="onNameChange($event)"
+        placeholder="Ej: Pilot, Lawnmower Dog..."
+      />
+    </mat-form-field>
+  </div>
+
+  <div class="filter-group">
+    <mat-form-field appearance="outline">
+      <mat-label>Filtrar por temporada</mat-label>
+      <mat-select 
+        [(value)]="seasonsFilter" 
+        (selectionChange)="onSeasonsChange()"
+        multiple
+      >
+        @for (season of availableSeasons; track season) {
+          <mat-option [value]="season">
+            Temporada {{ season.substring(1) }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

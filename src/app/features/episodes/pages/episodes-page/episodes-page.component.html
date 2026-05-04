@@ -1,0 +1,66 @@
+<div class="episodes-page">
+  <div class="top-bar">
+    <div class="refresh-section">
+      <button 
+        mat-icon-button 
+        color="primary"
+        (click)="onRefresh()"
+        [disabled]="store.isLoading()"
+        matTooltip="Actualizar episodios"
+        class="refresh-btn"
+      >
+        <mat-icon>refresh</mat-icon>
+      </button>
+      @if (store.lastUpdated()) {
+        <p class="last-updated">
+          Última actualización: {{ formatDate(store.lastUpdated()!) }}
+        </p>
+      }
+    </div>
+  </div>
+  
+  <div class="page-header">
+    <div class="title-section">
+      <h1>Rick and Morty - Episodios</h1>
+      <p>Explora todos los episodios de la serie</p>
+    </div>
+  </div>
+
+  <app-episode-filter
+    [availableSeasons]="store.availableSeasons()"
+    (filterChange)="onFilterChange($event)"
+  ></app-episode-filter>
+
+  @if (store.isLoading()) {
+    <app-loading-spinner></app-loading-spinner>
+  }
+
+  @if (store.error()) {
+    <app-error-message 
+      [message]="store.error()"
+      (onClose)="store.clearError()"
+    ></app-error-message>
+  }
+
+  @if (!store.isLoading() && store.episodes().length > 0) {
+    <app-episode-list
+      [episodes]="store.episodes()"
+      [currentPage]="store.pagination().currentPage"
+      [totalPages]="store.pagination().totalPages"
+      (onSelectEpisode)="onSelectEpisode($event)"
+      (nextPage)="onNextPage()"
+      (previousPage)="onPreviousPage()"
+    ></app-episode-list>
+  }
+
+  @if (store.isEmpty()) {
+    <app-empty-state></app-empty-state>
+  }
+
+  <app-episode-detail-dialog
+    [isOpen]="isDialogOpen()"
+    [episode]="store.selectedEpisode()"
+    [characters]="store.characters()"
+    (onClose)="closeDialog()"
+  ></app-episode-detail-dialog>
+</div>

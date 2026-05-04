@@ -1,0 +1,13 @@
+<div class="card" (click)="onSelect.emit(episode)">
+  <div class="card-header">
+    <h3>{{ episode.name }}</h3>
+    <span class="badge" [style.backgroundColor]="getSeasonColor(episode.episode)">{{ episode.episode }}</span>
+  </div>
+  <div class="card-body">
+    <p><strong>Fecha de emisión:</strong> {{ episode.air_date }}</p>
+    <p><strong>Personajes:</strong> {{ episode.characters.length }}</p>
+  </div>
+  <div class="card-footer">
+    <button class="btn-details">Ver detalles →</button>
+  </div>
+</div>

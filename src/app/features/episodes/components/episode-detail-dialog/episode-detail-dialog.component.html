@@ -1,0 +1,62 @@
+@if (isOpen) {
+  <div class="dialog-overlay" (click)="onClose.emit()">
+    <div class="dialog-content" (click)="$event.stopPropagation()">
+      <button class="btn-close" (click)="onClose.emit()">✕</button>
+
+      @if (episode) {
+        <div class="dialog-header">
+          <h2>{{ episode.name }}</h2>
+          <div class="episode-meta">
+            <span class="badge">{{ episode.episode }}</span>
+            <span class="date">{{ episode.air_date }}</span>
+          </div>
+        </div>
+      }
+
+      <div class="dialog-body">
+        @if (episode) {
+          <div class="episode-details">
+            <h3>Detalles del episodio</h3>
+            <dl>
+              <dt>Nombre:</dt>
+              <dd>{{ episode.name }}</dd>
+              <dt>Código:</dt>
+              <dd>{{ episode.episode }}</dd>
+              <dt>Fecha de emisión:</dt>
+              <dd>{{ episode.air_date }}</dd>
+              <dt>Personajes:</dt>
+              <dd>{{ episode.characters.length }}</dd>
+            </dl>
+          </div>
+        }
+
+        @if (characters.length > 0) {
+          <div class="characters-section">
+            <h3>Personajes destacados</h3>
+            <div class="characters-grid">
+              @for (char of characters; track char.id) {
+                <div class="character-card">
+                  <img [src]="char.image" [alt]="char.name" loading="lazy" />
+                  <div class="character-info">
+                    <h4>{{ char.name }}</h4>
+                    <p><strong>Estado:</strong> {{ char.status }}</p>
+                    <p><strong>Especie:</strong> {{ char.species }}</p>
+                    @if (char.location) {
+                      <p><strong>Ubicación:</strong> {{ char.location.name }}</p>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        @if (characters.length === 0 && episode) {
+          <div class="empty-characters">
+            <p>No se pudo cargar la información de personajes</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,81 @@
+.episodes-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.refresh-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.refresh-btn {
+  flex-shrink: 0;
+}
+
+.refresh-btn mat-icon {
+  transition: transform 0.3s ease;
+}
+
+.refresh-btn:not([disabled]):hover mat-icon {
+  transform: rotate(180deg);
+}
+
+.last-updated {
+  margin: 0;
+  font-size: 12px;
+  color: #999;
+  white-space: nowrap;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 20px 0;
+  border-bottom: 2px solid #eee;
+}
+
+.title-section {
+  text-align: center;
+}
+
+.title-section h1 {
+  margin: 0 0 10px 0;
+  font-size: 32px;
+  color: #333;
+}
+
+.title-section p {
+  margin: 0;
+  color: #999;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .episodes-page {
+    padding: 10px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .title-section h1 {
+    font-size: 24px;
+  }
+
+  .title-section p {
+    font-size: 14px;
+  }
+}
