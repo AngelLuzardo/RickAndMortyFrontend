@@ -9,8 +9,10 @@
   justify-content: flex-end;
   align-items: center;
   margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 12px;
+  border-bottom: 2px solid #00B7C3;
+  background: #f0f9fa;
+  border-radius: 8px;
 }
 
 .refresh-section {
@@ -19,34 +21,46 @@
   gap: 12px;
 }
 
-.refresh-btn {
-  flex-shrink: 0;
-}
-
-.refresh-btn mat-icon {
-  transition: transform 0.3s ease;
-}
-
-.refresh-btn:not([disabled]):hover mat-icon {
-  transform: rotate(180deg);
-}
-
 .last-updated {
   margin: 0;
   font-size: 12px;
-  color: #999;
-  white-space: nowrap;
+  color: #666;
 }
 
 .page-header {
   text-align: center;
   margin-bottom: 24px;
-  padding: 20px 0;
-  border-bottom: 2px solid #eee;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #f0f9fa 0%, #fff9f0 100%);
+  border-radius: 8px;
+  border: 2px solid #00B7C3;
 }
 
 .title-section {
   text-align: center;
+}
+
+.title-section h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.title-section .rick {
+  color: #00B7C3;
+}
+
+.title-section .and {
+  color: #666;
+}
+
+.title-section .morty {
+  color: #FFB81C;
+}
+
+.title-section .subtitle {
+  margin: 8px 0 0 0;
+  color: #666;
+  font-size: 16px;
 }
 
 .title-section h1 {

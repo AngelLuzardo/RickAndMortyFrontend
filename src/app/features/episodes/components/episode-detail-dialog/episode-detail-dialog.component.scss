@@ -14,13 +14,13 @@
 
 .dialog-content {
   background: white;
-  border-radius: 8px;
+  border-radius: 4px;
   max-width: 800px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   position: relative;
+  border: 1px solid #ddd;
 }
 
 .btn-close {
@@ -33,10 +33,10 @@
   cursor: pointer;
   color: #666;
   z-index: 1001;
+}
 
-  &:hover {
-    color: #000;
-  }
+.btn-close:hover {
+  color: #000;
 }
 
 .dialog-header {
@@ -58,11 +58,10 @@
 }
 
 .badge {
-  background: #007bff;
   color: white;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 13px;
   font-weight: bold;
 }
 
@@ -81,10 +80,10 @@ h3 {
   color: #333;
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
+}
 
-  &:first-child {
-    margin-top: 0;
-  }
+h3:first-child {
+  margin-top: 0;
 }
 
 dl {
@@ -97,6 +96,53 @@ dl {
 dt {
   font-weight: bold;
   color: #333;
+}
+
+dd {
+  margin: 0;
+  color: #666;
+}
+
+.characters-section {
+  margin-top: 20px;
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.character-card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  background: white;
+}
+
+.character-card img {
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.character-info h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.character-info p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.empty-characters {
+  text-align: center;
+  padding: 40px;
+  color: #999;
 }
 
 dd {

@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Episode, Character } from '../../../../shared/models';
+import { getSeasonColor } from '../../../../shared/utils/season-colors';
 
 @Component({
   selector: 'app-episode-detail-dialog',
@@ -21,4 +22,6 @@ export class EpisodeDetailDialogComponent {
   @Input() episode: Episode | null = null;
   @Input() characters: Character[] = [];
   @Output() onClose = new EventEmitter<void>();
+
+  getSeasonColor = getSeasonColor;
 }

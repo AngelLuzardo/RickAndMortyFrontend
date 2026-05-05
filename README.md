@@ -1,14 +1,8 @@
 # Rick and Morty Episodes - Angular 21
 
-Aplicación para visualizar episodios de Rick and Morty con filtrado avanzado por temporadas y búsqueda.
+Aplicación para visualizar episodios de Rick and Morty con filtrado por temporadas y búsqueda.
 
-## Requisitos
-
-- **Node.js**: 20.x o superior
-- **npm**: 10.x o superior
-- **Angular**: 21.x
-
-## Instalación y Ejecución
+## Instalación
 
 ```bash
 npm install
@@ -17,77 +11,51 @@ npm start
 
 La app corre en `http://localhost:4200`
 
-```bash
-npm test              # ejecutar tests
-npm run build         # build de producción
-```
-
 ## Características
 
 - Búsqueda por nombre de episodio
-- Filtro multi-select por temporadas (S01-S05)
-- Vista de tarjetas o tabla (con ordenamiento)
-- Detalle de episodio con personajes y ubicaciones
-- Badges de color por temporada
-- Actualización manual de datos con timestamp
+- Filtro multi-select por temporadas
+- Vista de tarjetas y tabla
+- Detalle de episodio con personajes
+- Actualización manual de datos
+- Colores por temporada
 
-## Stack Técnico
+## Stack
 
-- **Angular 21** con standalone components
-- **TypeScript 5.9** en modo strict
-- **NgRx Signals** para manejo de estado
-- **Angular Material** para UI
-- **Vitest** para testing
-- **RxJS** para operaciones asíncronas
+- Angular 21 standalone components
+- TypeScript 5.9 strict mode
+- NgRx Signals para estado
+- Angular Material
+- Vitest para testing
+- RxJS
 
-## Decisiones de Arquitectura
+## Decisiones técnicas
 
-### Cache Completo vs Paginación de la API
+### Cache completo vs paginación
 
-**Decidí NO usar la paginación que ofrece la API** por las siguientes razones:
+Decidí no usar la paginación de la API porque:
+- Solo hay 51 episodios en total
+- Con cache el filtrado es instantáneo
+- Menos requests al servidor
+- Implementación más simple
 
-1. **Dataset pequeño:** La API tiene solo 51 episodios en total (3 páginas de 20 items)
-2. **Experiencia de usuario:** Con cache completo, el filtrado y búsqueda son instantáneos, sin esperas de red
-3. **Menos requests:** Una sola carga inicial vs múltiples requests cada vez que el usuario cambia de página o filtra
-4. **Implementación más simple:** No hay que sincronizar estado de filtros con parámetros de URL de la API
+Cargo todos los episodios con `expand()` de RxJS y los cacheo con `shareReplay(1)`. El filtrado y paginación se hacen en cliente.
 
-Implementé:
-- `getAllEpisodes()` con RxJS `expand()` que carga recursivamente todas las páginas
-- `shareReplay(1)` para cachear el resultado en memoria
-- Filtrado y paginación 100% en el cliente (12 items por página)
+### Botón de actualizar
 
-### Botón de Actualizar
-
-Agregué un botón de refresh porque con cache completo surge la pregunta: **¿qué pasa si agregan nuevos episodios?**
-
-Implementación:
-- `clearEpisodesCache()` invalida el cache en memoria
-- `reloadAllEpisodes()` fuerza una nueva carga desde la API
-- `lastUpdated` timestamp visible para que el usuario sepa cuándo fue la última actualización
-- El botón llama a `refreshEpisodes()` que recarga y mantiene los filtros actuales
+Agregué un botón de refresh para invalidar el cache y recargar los datos desde la API. Mantiene los filtros actuales.
 
 ### NgRx Signal Store
 
-Usé Signal Store en lugar del patrón tradicional de NgRx porque:
-- Menos boilerplate (sin actions/effects/reducers)
-- Sintaxis moderna con signals de Angular
-- Type-safe por defecto
-- Suficiente para esta aplicación
-
-## API
-
-Usa la API pública de [Rick and Morty](https://rickandmortyapi.com/api)
-
-- `GET /episode` - listado paginado (20 por página)
-- `GET /character/{ids}` - detalles de personajes
+Usé Signal Store en lugar de NgRx tradicional por menos boilerplate y mejor integración con signals de Angular.
 
 ## Testing
-
-Tests unitarios con Vitest para:
-- Servicio de API (cache, paginación recursiva, invalidación)
-- Store (loadAllEpisodes, refreshEpisodes, filtros, paginación)
-- Componentes principales
 
 ```bash
 npm test
 ```
+
+Tests incluyen:
+- Servicio de API (cache, paginación, invalidación)
+- Store (carga, refresh, filtros, paginación)
+- Componentes principales

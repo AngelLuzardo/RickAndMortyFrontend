@@ -1,16 +1,11 @@
-/**
- * Obtiene el color asociado a una temporada basado en el código del episodio
- * @param episode Código del episodio (ej: 'S01E01')
- * @returns Color hexadecimal de la temporada
- */
 export function getSeasonColor(episode: string): string {
   const season = episode.substring(1, 3);
   const seasonColors: { [key: string]: string } = {
-    '01': '#FF6B6B',
-    '02': '#4ECDC4',
-    '03': '#45B7D1',
-    '04': '#FFA07A',
-    '05': '#98D8C8',
+    '01': '#00B7C3',
+    '02': '#FFB81C',
+    '03': '#E91E63',
+    '04': '#673AB7',
+    '05': '#FF6F00',
   };
-  return seasonColors[season] || '#667eea';
+  return seasonColors[season] || '#1976D2';
 }

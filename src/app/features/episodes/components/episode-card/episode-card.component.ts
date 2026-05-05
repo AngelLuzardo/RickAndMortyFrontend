@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Episode } from '../../../../shared/models';
+import { getSeasonColor } from '../../../../shared/utils/season-colors';
 
 @Component({
   selector: 'app-episode-card',
@@ -20,15 +21,5 @@ export class EpisodeCardComponent {
   @Input() episode!: Episode;
   @Output() onSelect = new EventEmitter<Episode>();
 
-  getSeasonColor(episode: string): string {
-    const season = episode.substring(1, 3);
-    const seasonColors: { [key: string]: string } = {
-      '01': '#FF6B6B',
-      '02': '#4ECDC4',
-      '03': '#45B7D1',
-      '04': '#FFA07A',
-      '05': '#98D8C8',
-    };
-    return seasonColors[season] || '#667eea';
-  }
+  getSeasonColor = getSeasonColor;
 }

@@ -1,21 +1,23 @@
 .card {
-  border: 1px solid #ddd;
+  border: 2px solid #00B7C3;
   border-radius: 8px;
   background: white;
   cursor: pointer;
-  transition: all 0.3s ease;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
-  &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
-  }
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 183, 195, 0.3);
+  border-color: #FFB81C;
 }
 
 .card-header {
   padding: 15px;
-  background: #f9f9f9;
-  border-bottom: 1px solid #eee;
+  background: linear-gradient(to right, #f0f9fa, #fff9f0);
+  border-bottom: 2px solid #00B7C3;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,27 +26,26 @@
 .card-header h3 {
   margin: 0;
   font-size: 16px;
-  color: #333;
+  color: #00B7C3;
 }
 
 .badge {
-  background: #007bff;
   color: white;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: bold;
-  transition: background 0.3s ease;
 }
 
 .card-body {
   padding: 15px;
+  flex: 1;
 }
 
 .card-body p {
   margin: 8px 0;
   font-size: 14px;
-  color: #666;
+  color: #555;
 }
 
 .card-footer {
@@ -59,10 +60,9 @@
   color: #007bff;
   cursor: pointer;
   font-size: 14px;
-  font-weight: bold;
   padding: 0;
+}
 
-  &:hover {
-    text-decoration: underline;
-  }
+.btn-details:hover {
+  text-decoration: underline;
 }

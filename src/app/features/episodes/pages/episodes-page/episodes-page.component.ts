@@ -10,7 +10,7 @@ import {
   EpisodeDetailDialogComponent,
 } from '../../components';
 import { LoadingSpinnerComponent, ErrorMessageComponent, EmptyStateComponent } from '../../../../shared/components';
-import { getSeasonColor } from '../../../../shared/utils/season-colors';
+import { Episode } from '../../../../shared/models';
 
 @Component({
   selector: 'app-episodes-page',
@@ -58,13 +58,11 @@ export class EpisodesPageComponent implements OnInit {
     this.store.setFilter(filter);
   }
 
-  onSelectEpisode(episode: any): void {
+  onSelectEpisode(episode: Episode): void {
     this.store.selectEpisode(episode);
     this.store.loadCharacters();
     this.dialogOpen = true;
   }
-
-  getSeasonColor = getSeasonColor;
 
   onNextPage(): void {
     const nextPage = this.store.pagination().currentPage + 1;

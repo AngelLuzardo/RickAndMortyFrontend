@@ -7,7 +7,7 @@
         <div class="dialog-header">
           <h2>{{ episode.name }}</h2>
           <div class="episode-meta">
-            <span class="badge">{{ episode.episode }}</span>
+            <span class="badge" [style.backgroundColor]="getSeasonColor(episode.episode)">{{ episode.episode }}</span>
             <span class="date">{{ episode.air_date }}</span>
           </div>
         </div>

@@ -2,6 +2,11 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { EpisodeFilterComponent } from './episode-filter.component';
 import { FormsModule } from '@angular/forms';
 
+interface FilterChangeEvent {
+  name: string;
+  seasons: string[];
+}
+
 describe('EpisodeFilterComponent', () => {
   let component: EpisodeFilterComponent;
   let fixture: ComponentFixture<EpisodeFilterComponent>;
@@ -21,33 +26,71 @@ describe('EpisodeFilterComponent', () => {
   });
 
   it('should emit filter change on name input', fakeAsync(() => {
-    let emitted: any = null;
+    let emitted: FilterChangeEvent | null = null;
     component.filterChange.subscribe((value) => {
       emitted = value;
+    });
+
+    component.availableSeasons = ['S01', 'S02', 'S03'];
+    component.ngOnChanges({
+      availableSeasons: {
+        previousValue: undefined,
+        currentValue: ['S01', 'S02', 'S03'],
+        firstChange: true,
+        isFirstChange: () => true,
+      },
     });
 
     component.onNameChange('Pilot');
 
-    tick(500); // debounceTime is 400ms, adding 100ms extra to be safe
+    tick(900); // debounceTime is 800ms, adding 100ms extra to be safe
 
     expect(emitted).toEqual({
       name: 'Pilot',
-      season: '',
+      seasons: ['S01', 'S02', 'S03'],
     });
   }));
 
-  it('should emit filter change on season select', () => {
-    let emitted: any = null;
+  it('should emit filter change on seasons change', fakeAsync(() => {
+    let emitted: FilterChangeEvent | null = null;
     component.filterChange.subscribe((value) => {
       emitted = value;
     });
 
-    component.seasonFilter = 'S01';
-    component.onSeasonChange();
+    component.availableSeasons = ['S01', 'S02', 'S03'];
+    component.ngOnChanges({
+      availableSeasons: {
+        previousValue: undefined,
+        currentValue: ['S01', 'S02', 'S03'],
+        firstChange: true,
+        isFirstChange: () => true,
+      },
+    });
+
+    component.seasonsFilter = ['S01'];
+    component.onSeasonsChange();
+
+    tick();
 
     expect(emitted).toEqual({
       name: '',
-      season: 'S01',
+      seasons: ['S01'],
     });
-  });
+  }));
+
+  it('should initialize with all available seasons', fakeAsync(() => {
+    component.availableSeasons = ['S01', 'S02', 'S03', 'S04', 'S05'];
+    component.ngOnChanges({
+      availableSeasons: {
+        previousValue: undefined,
+        currentValue: ['S01', 'S02', 'S03', 'S04', 'S05'],
+        firstChange: true,
+        isFirstChange: () => true,
+      },
+    });
+
+    tick();
+
+    expect(component.seasonsFilter).toEqual(['S01', 'S02', 'S03', 'S04', 'S05']);
+  }));
 });
